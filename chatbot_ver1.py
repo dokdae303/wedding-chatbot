@@ -7,8 +7,10 @@ from google.genai import types
 st.set_page_config(page_title="W웨딩 스마트 큐레이터", page_icon="🏢", layout="centered")
 
 # 2. 쟁취하신 진짜 AIzaSy 정식 키 주입
+# 기존에 하드코딩되어 있던 키 선언 부분을 지우고 아래처럼 스트림릿 보안 키를 읽도록 바꿉니다.
 if "gemini_client" not in st.session_state:
-    GEMINI_API_KEY = "AQ.Ab8RN6LPvnp2xQnrHwIw_V3ROjOSHCjb9AobUXQLx_oi1XA7mQ"
+    # 스트림릿 설정창(Secrets)에 등록한 키를 자동으로 안전하게 긁어옵니다.
+    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
     st.session_state.gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 
 client = st.session_state.gemini_client
