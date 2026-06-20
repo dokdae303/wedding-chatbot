@@ -7,7 +7,8 @@ from google.genai import types
 # 🔑 사내 시연용 비밀번호 잠금장치
 # ==========================================
 # (원하는 비밀번호로 자유롭게 바꾸셔도 됩니다)
-SIYEON_PASSWORD = "w-wedding-pass!"
+# 깃허브에는 글자가 안 보이고, 스트림릿 서버 내부에서만 매칭됩니다.
+SIYEON_PASSWORD = st.secrets["WEB_PASSWORD"]
 
 # 인증 상태 초기화
 if "authenticated" not in st.session_state:
