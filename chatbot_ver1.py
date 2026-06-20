@@ -3,6 +3,34 @@ import streamlit as st
 from google import genai
 from google.genai import types
 
+# ==========================================
+# 🔑 사내 시연용 비밀번호 잠금장치
+# ==========================================
+# (원하는 비밀번호로 자유롭게 바꾸셔도 됩니다)
+SIYEON_PASSWORD = "w-wedding-pass!"
+
+# 인증 상태 초기화
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+# 비밀번호를 맞추기 전까지만 이 화면을 띄움
+if not st.session_state.authenticated:
+    st.title("🔒 W웨딩 스마트 큐레이터")
+    st.subheader("사내 시연 및 보안을 위한 인증 페이지입니다.")
+    
+    # 비밀번호 입력창 (type="password"로 설정하면 마스킹 처리됨)
+    input_pw = st.text_input("접속 비밀번호를 입력하세요:", type="password")
+    
+    if st.button("인증하기"):
+        if input_pw == SIYEON_PASSWORD:
+            st.session_state.authenticated = True
+            st.rerun()  # 화면을 새로고침하여 아래 챗봇 코드를 오픈
+        else:
+            st.error("비밀번호가 올바르지 않습니다! 기획팀에 문의하세요.")
+            
+    st.stop()  # ★중요: 인증 실패 시 이 아래에 있는 기존 챗봇 코드는 실행하지 않고 정지시킴
+# ==========================================
+
 # 1. 스트림릿 웹 화면 기본 설정
 st.set_page_config(page_title="W웨딩 스마트 큐레이터", page_icon="🏢", layout="centered")
 
